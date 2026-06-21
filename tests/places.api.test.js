@@ -27,4 +27,18 @@ describe("places api", () => {
     expect(res.status).toBe(200);
     expect(res.body.items).toHaveLength(1);
   });
+
+  it("POST /api/places - malformed json 시 400", async () => {
+    const app = createApp({
+      placeService: { createPlace: vi.fn() }
+    });
+
+    const res = await request(app)
+      .post("/api/places")
+      .set("Content-Type", "application/json")
+      .send('{"name":');
+
+    expect(res.status).toBe(400);
+    expect(res.body.message).toContain("JSON");
+  });
 });
