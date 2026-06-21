@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>장소 등록</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body data-page="create">
+    <main class="container">
+      <header class="header">
+        <h1>장소 등록</h1>
+        <a class="button button-secondary" href="/">목록으로</a>
+      </header>
+      <form id="create-form" class="card">
+        <label>
+          이름
+          <input name="name" required />
+        </label>
+        <label>
+          위도
+          <input name="latitude" type="number" step="any" required />
+        </label>
+        <label>
+          경도
+          <input name="longitude" type="number" step="any" required />
+        </label>
+        <label>
+          구분(level_type)
+          <input name="level_type" required />
+        </label>
+        <label>
+          설명
+          <textarea name="description" rows="4"></textarea>
+        </label>
+        <button type="submit" class="button">등록</button>
+      </form>
+      <p id="error-text" class="error" aria-live="polite"></p>
+    </main>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
