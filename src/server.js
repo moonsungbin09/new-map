@@ -78,8 +78,6 @@ async function startServer() {
     const __dirname = path.dirname(__filename);
     app.use(express.static(path.resolve(__dirname, "..", "public")));
 
-    await sqlClient.ping();
-
     await new Promise((resolve, reject) => {
       const server = app.listen(config.port, () => resolve(server));
       server.on("error", reject);
