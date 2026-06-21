@@ -33,8 +33,8 @@ export function createPlaceService({ placeRepository }) {
       validatePlaceInput(input);
       return placeRepository.insertPlace(input);
     },
-    async getPlaces() {
-      return placeRepository.listPlaces();
+    async getPlaces({ limit }) {
+      return placeRepository.listPlaces({ limit });
     },
     async getPlaceById(id) {
       return placeRepository.getPlace(id);

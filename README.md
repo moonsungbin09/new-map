@@ -18,11 +18,15 @@
 1. `.env.example` 파일을 복사해 `.env`를 만듭니다.
 2. `.env`에 Azure SQL 연결값(`DB_SERVER`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_ENCRYPT`)을 입력합니다.
 3. `npm install`
-4. `npm start`
+4. (권장) 아래 **2) DB 스키마 적용**을 먼저 수행합니다.
+5. `npm start`
+   - 서버는 DB가 아직 연결되지 않아도 먼저 기동되어 정적 페이지(`/`)는 열립니다.
+   - DB 연결/스키마 준비 전에는 API가 `503 Service Unavailable`을 반환할 수 있습니다.
 
 ### 2) DB 스키마 적용
 
 - Azure SQL Query Editor에서 `src/db/schema.sql` 파일 내용을 실행합니다.
+- 스키마 적용 후 `/api/places`를 호출하면 정상 동작합니다.
 
 ### 3) Azure App Service 배포
 

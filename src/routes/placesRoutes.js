@@ -1,5 +1,24 @@
 import { Router } from "express";
 
+const DEFAULT_LIMIT = 20;
+const MAX_LIMIT = 100;
+
+function parseListLimit(limitQuery) {
+  if (limitQuery === undefined) {
+    return DEFAULT_LIMIT;
+  }
+
+  const parsedLimit = Number.parseInt(String(limitQuery), 10);
+  if (!Number.isInteger(parsedLimit) || parsedLimit <= 0) {
+    const error = new Error("limit은 1 이상의 정수여야 합니다.");
+    error.status = 400;
+    error.statusCode = 400;
+    throw error;
+  }
+
+  return Math.min(parsedLimit, MAX_LIMIT);
+}
+
 export function createPlacesRouter({ placeService }) {
   const router = Router();
 
@@ -19,7 +38,8 @@ export function createPlacesRouter({ placeService }) {
 
   router.get("/", async (req, res, next) => {
     try {
-      const items = await placeService.getPlaces();
+      const limit = parseListLimit(req.query.limit);
+      const items = await placeService.getPlaces({ limit });
       return res.status(200).json({ items });
     } catch (error) {
       return next(error);

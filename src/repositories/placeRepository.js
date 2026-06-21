@@ -3,8 +3,8 @@ export function createPlaceRepository({ sql }) {
     insertPlace(place) {
       return sql.insertPlace(place);
     },
-    listPlaces() {
-      return sql.listPlaces();
+    listPlaces({ limit }) {
+      return sql.listPlaces({ limit });
     },
     getPlace(id) {
       return sql.getPlace(id);

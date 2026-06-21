@@ -30,10 +30,11 @@ export function createSqlClient(dbConfig) {
       return { id };
     },
 
-    async listPlaces() {
+    async listPlaces({ limit }) {
       const request = await createRequest();
+      request.input("limit", mssql.Int, limit);
       const result = await request.query(`
-        SELECT id, name, level_type, created_at
+        SELECT TOP (@limit) id, name, level_type, created_at
         FROM dbo.places
         ORDER BY created_at DESC
       `);
