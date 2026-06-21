@@ -6,6 +6,32 @@
 
 ---
 
+## Mobile Web MVP 실행/배포 가이드
+
+### 1) 로컬 실행
+
+1. `.env.example` 파일을 복사해 `.env`를 만듭니다.
+2. `.env`에서 Azure SQL 연결값(`DB_SERVER`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_ENCRYPT`)을 설정합니다.
+3. `npm install`
+4. `npm start`
+
+### 2) DB 스키마 적용
+
+- Azure SQL Query Editor에서 `src/db/schema.sql` 파일 내용을 실행합니다.
+
+### 3) Azure App Service 배포
+
+1. Node 22 런타임으로 App Service를 생성합니다.
+2. 배포 원본을 GitHub 저장소로 연결합니다.
+3. App Service 환경 변수에 `DB_*`와 `PORT`를 설정합니다.
+4. App Service를 재시작한 뒤 `/`와 `/api/places` 엔드포인트를 확인합니다.
+
+### 수동 검증 체크리스트 (모바일 플로우)
+
+- [ ] `/` 페이지가 정상적으로 열린다.
+- [ ] `/create.html`에서 장소 생성이 정상 동작한다.
+- [ ] 생성 후 상세 페이지로 리다이렉트가 성공한다.
+
 ## 문서 구조
 
 - `copilot-instructions.md`
