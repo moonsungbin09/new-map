@@ -6,7 +6,18 @@ function parseBoolean(value, defaultValue) {
   if (value === undefined) {
     return defaultValue;
   }
-  return String(value).toLowerCase() === "true";
+
+  const normalizedValue = String(value).trim().toLowerCase();
+  if (normalizedValue === "true") {
+    return true;
+  }
+  if (normalizedValue === "false") {
+    return false;
+  }
+
+  throw new Error(
+    `Invalid boolean value for DB_ENCRYPT: "${value}". Use "true" or "false".`
+  );
 }
 
 export const config = {

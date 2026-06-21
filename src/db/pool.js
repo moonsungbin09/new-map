@@ -1,4 +1,5 @@
 import mssql from "mssql";
+import { randomUUID } from "node:crypto";
 
 export function createSqlClient(dbConfig) {
   const pool = new mssql.ConnectionPool(dbConfig);
@@ -11,7 +12,7 @@ export function createSqlClient(dbConfig) {
 
   return {
     async insertPlace(input) {
-      const id = `plc_${Date.now()}`;
+      const id = `plc_${randomUUID()}`;
       const request = await createRequest();
 
       await request
@@ -47,6 +48,11 @@ export function createSqlClient(dbConfig) {
         WHERE id = @id
       `);
       return result.recordset[0] ?? null;
+    },
+
+    async ping() {
+      const request = await createRequest();
+      await request.query("SELECT 1");
     }
   };
 }
