@@ -37,9 +37,19 @@ async function renderIndex() {
 function setupCreate() {
   const form = document.querySelector("#create-form");
   const errorEl = document.querySelector("#error-text");
+  const submitButton = form?.querySelector('button[type="submit"]');
+  let isSubmitting = false;
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (isSubmitting) {
+      return;
+    }
+
+    isSubmitting = true;
+    if (submitButton) {
+      submitButton.disabled = true;
+    }
     errorEl.textContent = "";
 
     const data = new FormData(form);
@@ -59,6 +69,10 @@ function setupCreate() {
       window.location.href = `/detail.html?id=${encodeURIComponent(created.id)}`;
     } catch (error) {
       errorEl.textContent = error instanceof Error ? error.message : "등록에 실패했습니다.";
+      isSubmitting = false;
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
     }
   });
 }

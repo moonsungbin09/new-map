@@ -13,5 +13,7 @@ describe("web smoke", () => {
     const response = await request(app).get("/api/places");
 
     expect(response.status).toBe(200);
+    expect(response.body).toMatchObject({ items: expect.any(Array) });
+    expect(response.body.items).toEqual([{ id: "plc_1", name: "테스트 장소" }]);
   });
 });
