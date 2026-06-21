@@ -96,10 +96,10 @@ async function renderDetail() {
 
 const page = document.body.dataset.page;
 if (page === "index") {
-  renderIndex().catch((error) => {
+  renderIndex().catch(() => {
     const listEl = document.querySelector("#place-list");
     if (listEl) {
-      listEl.innerHTML = `<li class="error">${error instanceof Error ? error.message : "조회 실패"}</li>`;
+      listEl.innerHTML = `<li class="error">목록을 불러오지 못했습니다.</li>`;
     }
   });
 } else if (page === "create") {
