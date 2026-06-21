@@ -8,10 +8,15 @@
 
 ## Mobile Web MVP 실행/배포 가이드
 
+### 시작 전에 준비할 것
+
+- Node.js 22 이상이 로컬 PC에 설치되어 있어야 합니다.
+- Azure SQL 접속 정보(`DB_SERVER`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_ENCRYPT`)를 준비합니다.
+
 ### 1) 로컬 실행
 
 1. `.env.example` 파일을 복사해 `.env`를 만듭니다.
-2. `.env`에서 Azure SQL 연결값(`DB_SERVER`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_ENCRYPT`)을 설정합니다.
+2. `.env`에 Azure SQL 연결값(`DB_SERVER`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_ENCRYPT`)을 입력합니다.
 3. `npm install`
 4. `npm start`
 
@@ -23,8 +28,9 @@
 
 1. Node 22 런타임으로 App Service를 생성합니다.
 2. 배포 원본을 GitHub 저장소로 연결합니다.
-3. App Service 환경 변수에 `DB_*`와 `PORT`를 설정합니다.
-4. App Service를 재시작한 뒤 `/`와 `/api/places` 엔드포인트를 확인합니다.
+3. Azure SQL 네트워크 접근을 설정합니다. (예: SQL Server 방화벽에서 App Service가 접속할 수 있도록 허용하거나, "Azure 서비스 및 리소스의 서버 액세스 허용"을 켭니다.)
+4. App Service 환경 변수에 `DB_*`와 `PORT`를 설정합니다.
+5. App Service를 재시작한 뒤 `/`와 `/api/places` 엔드포인트를 확인합니다.
 
 ### 수동 검증 체크리스트 (모바일 플로우)
 
