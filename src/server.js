@@ -56,6 +56,7 @@ async function connectWithRetry({ onReady }) {
     try {
       const sqlClient = createSqlClient(config.db);
       await sqlClient.ping();
+      await sqlClient.ensureSchema();
       onReady(sqlClient);
       console.info("Database connected. API is ready.");
       return;

@@ -12,5 +12,6 @@ describe("server startup", () => {
 
     expect(startServerMatch).toBeTruthy();
     expect(startServerMatch[1]).not.toMatch(/\bsqlClient\.ping\s*\(/);
+    expect(source).toMatch(/\bawait sqlClient\.ensureSchema\s*\(/);
   });
 });

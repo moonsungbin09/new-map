@@ -1,5 +1,8 @@
+import { readFileSync } from "node:fs";
 import mssql from "mssql";
 import { randomUUID } from "node:crypto";
+
+const schemaSql = readFileSync(new URL("./schema.sql", import.meta.url), "utf8");
 
 export function createSqlClient(dbConfig) {
   const pool = new mssql.ConnectionPool(dbConfig);
@@ -54,6 +57,11 @@ export function createSqlClient(dbConfig) {
     async ping() {
       const request = await createRequest();
       await request.query("SELECT 1");
+    },
+
+    async ensureSchema() {
+      const request = await createRequest();
+      await request.batch(schemaSql);
     }
   };
 }

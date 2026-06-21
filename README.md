@@ -25,8 +25,9 @@
 
 ### 2) DB 스키마 적용
 
-- Azure SQL Query Editor에서 `src/db/schema.sql` 파일 내용을 실행합니다.
-- 스키마 적용 후 `/api/places`를 호출하면 정상 동작합니다.
+- 앱이 Azure SQL에 처음 연결될 때 `src/db/schema.sql`의 내용을 자동으로 적용합니다.
+- 수동으로 먼저 확인하고 싶다면 Azure SQL Query Editor에서 `src/db/schema.sql` 파일 내용을 실행해도 됩니다.
+- 스키마가 준비되면 `/api/places`가 정상 동작합니다.
 
 ### 3) Azure App Service 배포
 
