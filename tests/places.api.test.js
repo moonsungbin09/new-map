@@ -1,6 +1,7 @@
 import request from "supertest";
 import { describe, it, expect, vi } from "vitest";
 import { createApp } from "../src/app.js";
+import { createPlaceService } from "../src/services/placeService.js";
 
 describe("places api", () => {
   it("POST /api/places - name 누락 시 400", async () => {
@@ -40,5 +41,26 @@ describe("places api", () => {
 
     expect(res.status).toBe(400);
     expect(res.body.message).toContain("JSON");
+  });
+
+  it("POST /api/places - 위도 검증 실패 시 400", async () => {
+    const placeService = createPlaceService({
+      placeRepository: {
+        insertPlace: vi.fn(),
+        listPlaces: vi.fn(),
+        getPlace: vi.fn()
+      }
+    });
+    const app = createApp({ placeService });
+
+    const res = await request(app).post("/api/places").send({
+      name: "테스트",
+      latitude: 100,
+      longitude: 127.0,
+      level_type: "지상"
+    });
+
+    expect(res.status).toBe(400);
+    expect(res.body.message).toContain("위도");
   });
 });
