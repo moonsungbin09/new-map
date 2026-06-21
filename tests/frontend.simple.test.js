@@ -11,4 +11,11 @@ describe("simple landing page", () => {
     expect(html).toContain('id="place-list"');
     expect(html).toContain('href="/create.html"');
   });
+
+  it("uses simplified list error message", async () => {
+    const appPath = path.resolve(process.cwd(), "public", "app.js");
+    const appJs = await readFile(appPath, "utf8");
+
+    expect(appJs).toContain("목록을 불러오지 못했습니다.");
+  });
 });
